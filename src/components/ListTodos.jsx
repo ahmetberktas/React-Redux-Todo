@@ -1,9 +1,22 @@
-import React from 'react'
+import React from "react";
+import { useSelector } from "react-redux";
+import TodoCard from "./TodoCard";
 
 const ListTodos = () => {
-  return (
-    <div>ListTodos</div>
-  )
-}
+  /* todoReducer'a abone olma işlemi */
+  const storeData = useSelector((store) => store);
 
-export default ListTodos
+  return (
+    <div>
+      {storeData.todos.length === 0 ? (
+        <h5>Herhangi bir yapılacak eklenmedi.</h5>
+      ) : (
+        storeData.todos.map((todo) => (
+          <TodoCard key={todo.id} todo={todo}></TodoCard>
+        ))
+      )}
+    </div>
+  );
+};
+
+export default ListTodos;

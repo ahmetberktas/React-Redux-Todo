@@ -10,7 +10,11 @@ const todoReducer = (state = initialState, action) => {
             const tempTodos = state.todos.concat(action.payload);
             return { ...state, todos: tempTodos };
         case "REMOVE_TODO":
-            return state;
+            const filteredTodos = state.todos.filter((todo) => todo.id !== action.payload)
+            return { ...state, todos: filteredTodos };
+        case "EDIT_TODO":
+            const updatedTodos = state.todos.map((i) => i.id === action.payload.id ? action.payload : i);
+            return { ...state, todos: updatedTodos }
         default:
             return state;
     }
