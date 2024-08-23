@@ -1,15 +1,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { ActionTypes } from "../redux/actionTypes/todoTypes";
+import { editTodo } from "../redux/actions/todoActions";
 
 const Modal = ({ close, todo }) => {
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     const updated = { ...todo, text: e.target[0].value };
-    dispatch({
-      type: "EDIT_TODO",
-      payload: updated,
-    });
+    dispatch(editTodo(updated));
     close();
   };
   return (

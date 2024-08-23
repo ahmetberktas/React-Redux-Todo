@@ -1,6 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { v4 } from "uuid";
+import { ActionTypes } from "../redux/actionTypes/todoTypes";
+import { addTodo } from "../redux/actions/todoActions";
 
 const AddForm = () => {
   /* Dispatch Kurulum */
@@ -16,12 +18,9 @@ const AddForm = () => {
       created_at: new Date(),
     };
     /* Store Ekleme */
-    dispatch({
-      type: "ADD_TODO",
-      payload: newTodo,
-    });
+    dispatch(addTodo(newTodo));
   };
-  
+
   return (
     <form
       onSubmit={handleSubmit}
