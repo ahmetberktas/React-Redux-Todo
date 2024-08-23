@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { v4 } from "uuid";
 import { ActionTypes } from "../redux/actionTypes/todoTypes";
 import { addTodo } from "../redux/actions/todoActions";
+import axios from "axios";
 
 const AddForm = () => {
   /* Dispatch Kurulum */
@@ -17,8 +18,16 @@ const AddForm = () => {
       is_done: false,
       created_at: new Date(),
     };
-    /* Store Ekleme */
-    dispatch(addTodo(newTodo));
+
+    /* Db'ye ve store'a ekleme*/
+    axios
+      .post("/todos", newTodo)
+      .then((response) => {
+        dispatch(addTodo(response.data));
+      })
+      .catch((err) => {
+        console.error("Todo eklenirken hata oluştu.", err);
+      });
   };
 
   return (

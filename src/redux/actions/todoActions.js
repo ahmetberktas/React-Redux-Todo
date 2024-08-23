@@ -15,3 +15,8 @@ export const editTodo = (payload) => ({
     payload
 })
 
+export const setTodo = (payload) => ({
+    type:ActionTypes.SET_TODO,
+    payload
+})
+

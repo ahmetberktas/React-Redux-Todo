@@ -17,6 +17,8 @@ const todoReducer = (state = initialState, action) => {
         case ActionTypes.EDIT_TODO:
             const updatedTodos = state.todos.map((i) => i.id === action.payload.id ? action.payload : i);
             return { ...state, todos: updatedTodos }
+        case ActionTypes.SET_TODO:
+            return {...state, todos:action.payload}
         default:
             return state;
     }

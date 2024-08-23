@@ -2,14 +2,22 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { ActionTypes } from "../redux/actionTypes/todoTypes";
 import { editTodo } from "../redux/actions/todoActions";
+import axios from "axios";
 
 const Modal = ({ close, todo }) => {
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     const updated = { ...todo, text: e.target[0].value };
-    dispatch(editTodo(updated));
-    close();
+    axios
+      .put(`/todos/${todo.id}`, updated)
+      .then(() => {
+        dispatch(editTodo(updated));
+        close();
+      })
+      .catch((err) => {
+        console.error("Todo güncellenirken hata oluştu.", err);
+      });
   };
   return (
     <div className="modal d-block text-black">
